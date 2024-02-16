@@ -6,7 +6,6 @@ function App() {
         <>
             <AppGlobal />
             <AppRoutes />
-            <h1>app</h1>
         </>
     );
 }
