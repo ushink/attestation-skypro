@@ -11,7 +11,7 @@ export const userApi = createApi({
     endpoints: (build) => ({
         // получить login всех пользователей
         getAllLogins: build.query({
-            query: (searchValue) => `search/users?q=${searchValue}`
+            query: (searchValue) => `search/users?q=${searchValue}&per_page=${14}&page=${1}`
         })
 
         // получить repos выбранного пользователя

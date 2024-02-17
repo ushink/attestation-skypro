@@ -80,6 +80,7 @@ export const ul = styled.ul`
     cursor: pointer;
     display: flex;
     flex-wrap: wrap;
+    padding-top: 20px;
     gap: 20px;
 `
 
