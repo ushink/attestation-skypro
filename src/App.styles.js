@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from 'styled-components'
 
 export const AppGlobal = createGlobalStyle`
 * {
@@ -34,8 +34,8 @@ aside {
 
 html,
 body {
-    height: 100%;
-    width: 100%;
+    height: 100vh;
+    width: 100vw;
     font-size: 100%;
     line-height: 1;
     font-size: 14px;
@@ -94,4 +94,7 @@ h6 {
     font-weight: 400;
 }
 
-`;
+::-webkit-scrollbar {
+    width: 0;
+  }
+`
