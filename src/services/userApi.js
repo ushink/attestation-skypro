@@ -18,9 +18,13 @@ export const userApi = createApi({
         // получить данные пользователя
         getUser: build.query({
             query: (login) => `users/${login}`
-        })
+        }),
+
         // получить repos выбранного пользователя
+        getUserRepos: build.query({
+            query: (login) => `users/${login}/repos`
+        })
     })
 })
 
-export const { useGetAllLoginsQuery, useGetUserQuery } = userApi
+export const { useGetAllLoginsQuery, useGetUserQuery, useGetUserReposQuery } = userApi

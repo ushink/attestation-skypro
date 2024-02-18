@@ -75,6 +75,11 @@ export const main = styled.div`
     padding-bottom: 50px;
 `
 
+export const menu = styled.div`
+    display: flex;
+    justify-content: space-between;
+`
+
 export const ul = styled.ul`
     align-items: flex-start;
     cursor: pointer;
