@@ -109,18 +109,3 @@ export const span = styled.span`
     font-size: 18px;
     line-height: 24px;
 `
-
-export const footer = styled.footer`
-    max-width: 1044px;
-    padding-bottom: 40px;
-`
-
-export const pagination = styled.span`
-    display: inline-block;
-    cursor: pointer;
-    padding: 8px 16px;
-    text-decoration: none;
-    transition: background-color 0.3s;
-    background-color: ${(props) => props.$active && '#4caf50'};
-    color: ${(props) => props.$active && 'white'};
-`

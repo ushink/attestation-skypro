@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react'
 import { useGetAllLoginsQuery } from '../../services/userApi'
 import * as S from './styles'
 import { useDispatch, useSelector } from 'react-redux'
-import { setAllLogins, setCurrentPage } from '../../store/slices/userSlice'
-import { createPages } from '../../utils/createPages'
+import { setAllLogins } from '../../store/slices/userSlice'
+import { Pagination } from '../../components/Pagination/Pagination'
 
 export const Main = () => {
     const dispatch = useDispatch()
@@ -15,16 +15,10 @@ export const Main = () => {
     console.log(logins)
 
     const [search, setSearch] = useState('')
-    const [isActive, setIsActive] = useState(false)
-
-    const pagesCount = Math.ceil(totalCount / 21)
-    const pages = []
-    createPages(pages, pagesCount, currentPage)
 
     const { data } = useGetAllLoginsQuery({
         searchValue: search.trim().toLowerCase(),
-        page: currentPage,
-        pollingInterval: 3000
+        page: currentPage
     })
 
     useEffect(() => {
@@ -60,6 +54,7 @@ export const Main = () => {
             </S.header>
             <S.main>
                 <S.span>{totalCount} Users Found</S.span>
+                <div></div>
                 {filterUsers() && (
                     <S.ul>
                         {filterUsers().map((el) => (
@@ -71,20 +66,7 @@ export const Main = () => {
                     </S.ul>
                 )}
             </S.main>
-            <S.footer>
-                {pages.map((page, index) => (
-                    <S.pagination
-                        key={index}
-                        $active={isActive}
-                        onClick={() => {
-                            dispatch(setCurrentPage(page))
-                            setIsActive(!isActive)
-                        }}
-                    >
-                        {page}
-                    </S.pagination>
-                ))}
-            </S.footer>
+            <Pagination currentPage={currentPage} totalCount={totalCount} />
         </S.wrapper>
     )
 }
