@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react'
 import { useGetAllLoginsQuery } from '../../services/userApi'
 import * as S from './styles'
 import { useDispatch, useSelector } from 'react-redux'
-import { setAllLogins } from '../../store/slices/userSlice'
+import { setAllLogins, setCurrentPage } from '../../store/slices/userSlice'
+import { createPages } from '../../utils/createPages'
 
 export const Main = () => {
     const dispatch = useDispatch()
@@ -11,11 +12,20 @@ export const Main = () => {
     const logins = useSelector((state) => state.users.items)
     const totalCount = useSelector((state) => state.users.totalCount)
     const currentPage = useSelector((state) => state.users.currentPage)
-    console.log(currentPage)
+    console.log(logins)
 
     const [search, setSearch] = useState('')
+    const [isActive, setIsActive] = useState(false)
 
-    const { data } = useGetAllLoginsQuery(search.trim().toLowerCase())
+    const pagesCount = Math.ceil(totalCount / 21)
+    const pages = []
+    createPages(pages, pagesCount, currentPage)
+
+    const { data } = useGetAllLoginsQuery({
+        searchValue: search.trim().toLowerCase(),
+        page: currentPage,
+        pollingInterval: 3000
+    })
 
     useEffect(() => {
         try {
@@ -61,6 +71,20 @@ export const Main = () => {
                     </S.ul>
                 )}
             </S.main>
+            <S.footer>
+                {pages.map((page, index) => (
+                    <S.pagination
+                        key={index}
+                        $active={isActive}
+                        onClick={() => {
+                            dispatch(setCurrentPage(page))
+                            setIsActive(!isActive)
+                        }}
+                    >
+                        {page}
+                    </S.pagination>
+                ))}
+            </S.footer>
         </S.wrapper>
     )
 }
