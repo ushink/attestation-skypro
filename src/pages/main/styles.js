@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 
 export const wrapper = styled.div`
-    width: 100vw;
     height: 100vh;
     background: linear-gradient(
             rgba(135, 60, 255, 0.4),
@@ -12,24 +11,31 @@ export const wrapper = styled.div`
             rgba(120, 155, 255, 0.9) 25%,
             rgba(255, 160, 65, 0.9) 75%
         );
+    background-repeat: no-repeat;
+    background-size: cover;
     display: flex;
     flex-direction: column;
     align-items: center;
 `
 export const header = styled.div`
     width: 100%;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
+    flex-direction: column;
     -webkit-box-align: center;
-    -ms-flex-align: center;
     align-items: center;
     -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
     max-width: 1178px;
     margin: 0 auto;
     padding: 30px 10px 30px 10px;
 `
+
+export const title = styled.h1`
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 24px;
+    padding-bottom: 20px;
+`
+
 export const form = styled.form`
     max-width: 1044px;
     width: 100%;
@@ -64,13 +70,47 @@ export const input = styled.input`
 
 export const main = styled.div`
     width: 100%;
-    max-width: 1096px;
+    height: 100%;
+    max-width: 1044px;
+    padding-bottom: 50px;
 `
 
-export const ol = styled.ol``
+export const menu = styled.div`
+    display: flex;
+    justify-content: space-between;
+`
+
+export const ul = styled.ul`
+    align-items: flex-start;
+    cursor: pointer;
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 20px;
+    gap: 20px;
+`
 
 export const li = styled.li`
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    list-style: none;
+    text-align: center;
+    width: calc(100% / 5 - 80px);
+`
+
+export const avatar = styled.img`
+    max-width: 100%;
+    margin-bottom: 10px;
+    border-radius: 50%;
+
+    &:hover {
+        box-shadow:
+            2px 2px 7px 2px rgba(130, 130, 130, 0.7),
+            -2px -2px 7px 2px rgba(130, 130, 130, 1);
+    }
+`
+export const span = styled.span`
     font-size: 18px;
     line-height: 24px;
-    padding-bottom: 4px;
 `
