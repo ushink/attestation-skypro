@@ -1,11 +1,12 @@
-import { useEffect, useMemo, useState } from 'react'
-import { useGetAllLoginsQuery } from '../../services/userApi'
 import * as S from './styles'
+import { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useGetAllLoginsQuery } from '../../services/userApi'
 import { setAllLogins, setError } from '../../store/slices/userSlice'
 import { Pagination } from '../../components/Pagination/Pagination'
 import { Modal } from '../../components/Modal/Modal'
 import { SortRepos } from '../../components/SortRepos/SortRepos'
+import { Content } from '../../components/Content/Content'
 import { toast } from 'react-toastify'
 
 export const Main = () => {
@@ -95,21 +96,12 @@ export const Main = () => {
                     />
                 </S.menu>
                 {filterUsers && (
-                    <S.ul onClick={() => setIsReveal(false)}>
-                        {filterUsers.map((el) => (
-                            <S.li key={el.id}>
-                                <S.avatar
-                                    src={el.avatar_url}
-                                    alt="img"
-                                    onClick={() => {
-                                        setIsModalActive(true)
-                                        setCurrentUser(el.login)
-                                    }}
-                                />
-                                <S.span>{el.login}</S.span>
-                            </S.li>
-                        ))}
-                    </S.ul>
+                    <Content
+                        filterUsers={filterUsers}
+                        setIsReveal={setIsReveal}
+                        setIsModalActive={setIsModalActive}
+                        setCurrentUser={setCurrentUser}
+                    />
                 )}
                 <Modal
                     isActive={isModalActive}
