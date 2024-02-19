@@ -7,14 +7,15 @@ import { setError } from '../../store/slices/userSlice'
 
 export function Modal({ isActive, setIsActive, currentUser }) {
     const dispatch = useDispatch()
-    const { data: userData, isError } = useGetUserQuery(currentUser)
+    
+    const { data: userData, error, isError } = useGetUserQuery(currentUser)
 
     useEffect(() => {
-        if (isError) {
-            toast.error('Упс... Попробуйте позже')
+        if (error?.status == 403) {
+            toast.error('Oops... Try again later')
             dispatch(setError())
         }
-    }, [isError])
+    }, [error])
 
     return (
         <S.modal

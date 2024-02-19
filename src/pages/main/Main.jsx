@@ -24,7 +24,7 @@ export const Main = () => {
     const [isReveal, setIsReveal] = useState(false)
     const [paramsSort, setParamsSort] = useState('')
 
-    const { data: allLoginsData, isError } = useGetAllLoginsQuery({
+    const { data: allLoginsData, error } = useGetAllLoginsQuery({
         searchValue: search.trim().toLowerCase(),
         sort: paramsSort,
         perPage: perPage,
@@ -40,11 +40,15 @@ export const Main = () => {
     }, [allLoginsData])
 
     useEffect(() => {
-        if (isError) {
-            toast.info('Попробуйте снова')
+        if (error?.status == 422) {
+            toast.info('Enter the user is login')
             dispatch(setError())
         }
-    }, [isError])
+        if (error?.status == 403) {
+            toast.error('Oops... Try again later')
+            dispatch(setError())
+        }
+    }, [error])
 
     const filterUsers = useMemo(() => {
         let users = [...logins]
@@ -57,6 +61,7 @@ export const Main = () => {
             }
             if (orderOption === 'возрастанию') {
                 setParamsSort('asc')
+                return
             }
             if (orderOption === 'убыванию') {
                 setParamsSort('desc')
