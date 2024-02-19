@@ -1,12 +1,12 @@
 import * as S from './styles'
 import { useState } from 'react'
 
-export default function SortRepos({
+export const SortRepos = ({
     setIsReveal,
     isReveal,
     orderOption,
     setOrderOption
-}) {
+}) => {
     const [isMore, setIsMore] = useState(false)
     const [isLess, setIsLess] = useState(false)
 
