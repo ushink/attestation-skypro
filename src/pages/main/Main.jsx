@@ -17,11 +17,11 @@ export const Main = () => {
     const perPage = useSelector((state) => state.users.perPage)
 
     const [search, setSearch] = useState('')
-    const [modalActive, setModalActive] = useState(false)
+    const [isModalActive, setIsModalActive] = useState(false)
     const [currentUser, setCurrentUser] = useState('')
     // сортировка
-    const [quantityRepos, setQuantityRepos] = useState('—')
-    const [revealRepos, setRevealRepos] = useState(false)
+    const [orderOption, setOrderOption] = useState('—')
+    const [isReveal, setIsReveal] = useState(false)
     const [paramsSort, setParamsSort] = useState('')
 
     const { data: allLoginsData } = useGetAllLoginsQuery({
@@ -48,15 +48,15 @@ export const Main = () => {
                 login.toLowerCase().includes(search.trim().toLowerCase())
             )
         }
-        if (quantityRepos === 'возрастанию') {
+        if (orderOption === 'возрастанию') {
             setParamsSort('asc')
         }
-        if (quantityRepos === 'убыванию') {
+        if (orderOption === 'убыванию') {
             setParamsSort('desc')
         }
 
         return users
-    }, [logins, search, quantityRepos])
+    }, [logins, search, orderOption])
 
     return (
         <S.wrapper>
@@ -75,21 +75,21 @@ export const Main = () => {
                 <S.menu>
                     <S.span>{totalCount} Users Found</S.span>
                     <SortRepos
-                        Repos={quantityRepos}
-                        setRepos={setQuantityRepos}
-                        revealRepos={revealRepos}
-                        setRevealRepos={setRevealRepos}
+                        orderOption={orderOption}
+                        setOrderOption={setOrderOption}
+                        isReveal={isReveal}
+                        setIsReveal={setIsReveal}
                     />
                 </S.menu>
                 {filterUsers && (
-                    <S.ul onClick={() => setRevealRepos(false)}>
+                    <S.ul onClick={() => setIsReveal(false)}>
                         {filterUsers.map((el) => (
                             <S.li key={el.id}>
                                 <S.avatar
                                     src={el.avatar_url}
                                     alt="img"
                                     onClick={() => {
-                                        setModalActive(true)
+                                        setIsModalActive(true)
                                         setCurrentUser(el.login)
                                     }}
                                 />
@@ -99,8 +99,8 @@ export const Main = () => {
                     </S.ul>
                 )}
                 <Modal
-                    isActive={modalActive}
-                    setIsActive={setModalActive}
+                    isActive={isModalActive}
+                    setIsActive={setIsModalActive}
                     currentUser={currentUser}
                 />
             </S.main>

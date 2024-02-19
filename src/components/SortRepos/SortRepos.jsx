@@ -2,24 +2,24 @@ import * as S from './styles'
 import { useState } from 'react'
 
 export default function SortRepos({
-    setRevealRepos,
-    revealRepos,
-    Repos,
-    setRepos
+    setIsReveal,
+    isReveal,
+    orderOption,
+    setOrderOption
 }) {
-    const [moreRepos, setMoreRepos] = useState(false)
-    const [lessRepos, setLessRepos] = useState(false)
+    const [isMore, setIsMore] = useState(false)
+    const [isLess, setIsLess] = useState(false)
 
-    const toggleMoreRepos = () => {
-        setMoreRepos(!moreRepos)
-        setLessRepos(false)
-        setRepos('возрастанию')
+    const toggleIsMore = () => {
+        setIsMore(!isMore)
+        setIsLess(false)
+        setOrderOption('возрастанию')
     }
 
-    const toggleLessRepos = () => {
-        setLessRepos(!lessRepos)
-        setMoreRepos(false)
-        setRepos('убыванию')
+    const toggleIsLess = () => {
+        setIsLess(!isLess)
+        setIsMore(false)
+        setOrderOption('убыванию')
     }
 
     return (
@@ -27,24 +27,24 @@ export default function SortRepos({
             <S.title>Сортировка по:</S.title>
             <S.filterBox>
                 <S.button
-                    className={revealRepos && 'active'}
-                    onClick={() => setRevealRepos(!revealRepos)}
+                    className={isReveal && 'active'}
+                    onClick={() => setIsReveal(!isReveal)}
                 >
-                    {Repos}
+                    {orderOption}
                 </S.button>
-                {revealRepos && (
+                {isReveal && (
                     <S.menu>
                         <S.list>
-                            <S.item href="#" onClick={toggleMoreRepos}>
-                                {moreRepos ? (
-                                    <S.activeItem>{Repos}</S.activeItem>
+                            <S.item href="#" onClick={toggleIsMore}>
+                                {isMore ? (
+                                    <S.activeItem>{orderOption}</S.activeItem>
                                 ) : (
                                     'возрастанию'
                                 )}
                             </S.item>
-                            <S.item href="#" onClick={toggleLessRepos}>
-                                {lessRepos ? (
-                                    <S.activeItem>{Repos}</S.activeItem>
+                            <S.item href="#" onClick={toggleIsLess}>
+                                {isLess ? (
+                                    <S.activeItem>{orderOption}</S.activeItem>
                                 ) : (
                                     'убыванию'
                                 )}
