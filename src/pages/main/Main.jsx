@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useGetAllLoginsQuery } from '../../services/userApi'
 import * as S from './styles'
 import { useDispatch, useSelector } from 'react-redux'
-import { setAllLogins } from '../../store/slices/userSlice'
+import { setAllLogins, setError } from '../../store/slices/userSlice'
 import { Pagination } from '../../components/Pagination/Pagination'
 import { Modal } from '../../components/Modal/Modal'
 import { SortRepos } from '../../components/SortRepos/SortRepos'
@@ -24,7 +24,7 @@ export const Main = () => {
     const [isReveal, setIsReveal] = useState(false)
     const [paramsSort, setParamsSort] = useState('')
 
-    const { data: allLoginsData } = useGetAllLoginsQuery({
+    const { data: allLoginsData, isError } = useGetAllLoginsQuery({
         searchValue: search.trim().toLowerCase(),
         sort: paramsSort,
         perPage: perPage,
@@ -35,9 +35,16 @@ export const Main = () => {
         try {
             dispatch(setAllLogins(allLoginsData))
         } catch (error) {
-            toast.error(error.message)
+            console.log(error.message)
         }
     }, [allLoginsData])
+
+    useEffect(() => {
+        if (isError) {
+            toast.info('Попробуйте снова')
+            dispatch(setError())
+        }
+    }, [isError])
 
     const filterUsers = useMemo(() => {
         let users = [...logins]

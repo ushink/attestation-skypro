@@ -2,13 +2,17 @@ import { useEffect } from 'react'
 import { useGetUserQuery } from '../../services/userApi'
 import * as S from './styles'
 import { toast } from 'react-toastify'
+import { useDispatch } from 'react-redux'
+import { setError } from '../../store/slices/userSlice'
 
 export function Modal({ isActive, setIsActive, currentUser }) {
+    const dispatch = useDispatch()
     const { data: userData, isError } = useGetUserQuery(currentUser)
 
     useEffect(() => {
         if (isError) {
             toast.error('Упс... Попробуйте позже')
+            dispatch(setError())
         }
     }, [isError])
 

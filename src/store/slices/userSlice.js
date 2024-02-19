@@ -19,10 +19,15 @@ export const userSlice = createSlice({
 
         setCurrentPage(state, action) {
             state.currentPage = action.payload
+        },
+
+        setError(state) {
+            state.items = []
+            state.totalCount = 0
         }
     }
 })
 
-export const { setAllLogins, setCurrentPage } = userSlice.actions
+export const { setAllLogins, setCurrentPage, setError } = userSlice.actions
 
 export default userSlice.reducer
