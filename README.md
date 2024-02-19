@@ -19,6 +19,10 @@
 * HTML
 * CSS
 
+### Используемые библиотеки
+
+[react-toastify](https://www.npmjs.com/package/react-toastify)
+
 ## Установка и запуск
 
 1. Клонируйте репозиторий на свой компьютер: git clone <URL репозитория>
@@ -30,6 +34,7 @@
 ## Скриншоты
 
 ### Главная страница
-![image](https://github.com/ushink/attestation-skypro/assets/131166403/657c37c3-2491-4710-86bc-8ad1ed685f36)
-![image](https://github.com/ushink/attestation-skypro/assets/131166403/f4158349-db9a-4211-b886-60d55be8262e)
+![image](https://github.com/ushink/attestation-skypro/assets/131166403/043682fa-4939-4bd2-ae92-eaed08cf9800)
+![image](https://github.com/ushink/attestation-skypro/assets/131166403/c1229aac-7d74-4075-843a-353297b4a07d)
+
 
