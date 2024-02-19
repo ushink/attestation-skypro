@@ -1,4 +1,3 @@
-// import { login } from '../../mock/login'
 import { useEffect, useMemo, useState } from 'react'
 import { useGetAllLoginsQuery } from '../../services/userApi'
 import * as S from './styles'
@@ -6,7 +5,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setAllLogins } from '../../store/slices/userSlice'
 import { Pagination } from '../../components/Pagination/Pagination'
 import { Modal } from '../../components/Modal/Modal'
-import SortRepos from '../../components/SortRepos/SortRepos'
+import { SortRepos } from '../../components/SortRepos/SortRepos'
+import { toast } from 'react-toastify'
 
 export const Main = () => {
     const dispatch = useDispatch()
@@ -30,30 +30,31 @@ export const Main = () => {
         perPage: perPage,
         page: currentPage
     })
-    console.log(allLoginsData)
 
     useEffect(() => {
         try {
             dispatch(setAllLogins(allLoginsData))
         } catch (error) {
-            console.log(error.message)
+            toast.error(error.message)
         }
     }, [allLoginsData])
 
     const filterUsers = useMemo(() => {
         let users = [...logins]
 
-        if (search !== '') {
-            users = users?.filter(({ login }) =>
-                login.toLowerCase().includes(search.trim().toLowerCase())
-            )
-        }
-        if (orderOption === 'возрастанию') {
-            setParamsSort('asc')
-        }
-        if (orderOption === 'убыванию') {
-            setParamsSort('desc')
-        }
+        setTimeout(() => {
+            if (search !== '') {
+                users = users?.filter(({ login }) =>
+                    login.toLowerCase().includes(search.trim().toLowerCase())
+                )
+            }
+            if (orderOption === 'возрастанию') {
+                setParamsSort('asc')
+            }
+            if (orderOption === 'убыванию') {
+                setParamsSort('desc')
+            }
+        }, 500)
 
         return users
     }, [logins, search, orderOption])

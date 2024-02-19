@@ -12,16 +12,18 @@ export const modal = styled.div`
     justify-content: center;
     transition: 0.5s;
     z-index: 1;
-    opacity: ${(props) => (props.$active ? '1' : '0')};
-    visibility: ${(props) => (props.$active ? 'visible' : 'hidden')};
-    pointer-events: ${(props) => props.$active && 'all'};
+    opacity: ${(props) => (props.$active && !props.$error ? '1' : '0')};
+    visibility: ${(props) =>
+        props.$active && !props.$error ? 'visible' : 'hidden'};
+    pointer-events: ${(props) => props.$active && !props.$error && 'all'};
 `
 export const content = styled.div`
     padding: 20px 50px;
     border-radius: 12px;
     background-color: #ffffff;
     transition: 0.4s all;
-    transform: ${(props) => (props.$active ? 'scale(1)' : ' scale(0.5)')};
+    transform: ${(props) =>
+        props.$active && !props.$error ? 'scale(1)' : ' scale(0.5)'};
     display: flex;
     align-items: center;
     column-gap: 20px;
