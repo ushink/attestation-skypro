@@ -1,6 +1,6 @@
 # Search for users on Github
 
-Финальный результат этого проекта — реализация сайта поиска пользователей на Github.
+Финальный результат этого проекта — реализация [поиска пользователей на Github.](https://main--vocal-belekoy-1306f4.netlify.app/) 
 
 ## Функциональность
 
@@ -37,4 +37,7 @@
 ![image](https://github.com/ushink/attestation-skypro/assets/131166403/043682fa-4939-4bd2-ae92-eaed08cf9800)
 ![image](https://github.com/ushink/attestation-skypro/assets/131166403/c1229aac-7d74-4075-843a-353297b4a07d)
 
+### Деплой проекта на netlify
+
+https://main--vocal-belekoy-1306f4.netlify.app/
 
