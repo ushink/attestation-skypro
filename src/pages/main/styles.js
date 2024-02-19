@@ -2,17 +2,6 @@ import styled from 'styled-components'
 
 export const wrapper = styled.div`
     height: 100vh;
-    background: linear-gradient(
-            rgba(135, 60, 255, 0.4),
-            rgba(135, 60, 255, 0) 80%
-        ),
-        linear-gradient(
-            -45deg,
-            rgba(120, 155, 255, 0.9) 25%,
-            rgba(255, 160, 65, 0.9) 75%
-        );
-    background-repeat: no-repeat;
-    background-size: cover;
     display: flex;
     flex-direction: column;
     align-items: center;
