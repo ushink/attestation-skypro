@@ -43,7 +43,12 @@ body {
     -moz-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
     font-family: 'Roboto', sans-serif;
-    background: #fafafa;
+    background: linear-gradient(
+        rgba(135, 60, 255, 0.4),
+        rgba(135, 60, 255, 0) 80%
+    );
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 input,

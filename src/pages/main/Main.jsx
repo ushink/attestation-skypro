@@ -1,12 +1,13 @@
-// import { login } from '../../mock/login'
-import { useEffect, useMemo, useState } from 'react'
-import { useGetAllLoginsQuery } from '../../services/userApi'
 import * as S from './styles'
+import { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setAllLogins } from '../../store/slices/userSlice'
+import { useGetAllLoginsQuery } from '../../services/userApi'
+import { setAllLogins, setError } from '../../store/slices/userSlice'
 import { Pagination } from '../../components/Pagination/Pagination'
 import { Modal } from '../../components/Modal/Modal'
-import SortRepos from '../../components/SortRepos/SortRepos'
+import { SortRepos } from '../../components/SortRepos/SortRepos'
+import { Content } from '../../components/Content/Content'
+import { toast } from 'react-toastify'
 
 export const Main = () => {
     const dispatch = useDispatch()
@@ -14,21 +15,22 @@ export const Main = () => {
     const logins = useSelector((state) => state.users.items)
     const totalCount = useSelector((state) => state.users.totalCount)
     const currentPage = useSelector((state) => state.users.currentPage)
+    const perPage = useSelector((state) => state.users.perPage)
 
     const [search, setSearch] = useState('')
-    const [modalActive, setModalActive] = useState(false)
+    const [isModalActive, setIsModalActive] = useState(false)
     const [currentUser, setCurrentUser] = useState('')
     // сортировка
-    const [quantityRepos, setQuantityRepos] = useState('—')
-    const [revealRepos, setRevealRepos] = useState(false)
+    const [orderOption, setOrderOption] = useState('—')
+    const [isReveal, setIsReveal] = useState(false)
     const [paramsSort, setParamsSort] = useState('')
 
-    const { data: allLoginsData } = useGetAllLoginsQuery({
+    const { data: allLoginsData, error } = useGetAllLoginsQuery({
         searchValue: search.trim().toLowerCase(),
         sort: paramsSort,
+        perPage: perPage,
         page: currentPage
     })
-    console.log(allLoginsData)
 
     useEffect(() => {
         try {
@@ -38,23 +40,37 @@ export const Main = () => {
         }
     }, [allLoginsData])
 
+    useEffect(() => {
+        if (error?.status == 422) {
+            toast.info('Enter the user is login')
+            dispatch(setError())
+        }
+        if (error?.status == 403) {
+            toast.error('Oops... Try again later')
+            dispatch(setError())
+        }
+    }, [error])
+
     const filterUsers = useMemo(() => {
         let users = [...logins]
 
-        if (search !== '') {
-            users = users?.filter(({ login }) =>
-                login.toLowerCase().includes(search.trim().toLowerCase())
-            )
-        }
-        if (quantityRepos === 'возрастанию') {
-            setParamsSort('asc')
-        }
-        if (quantityRepos === 'убыванию') {
-            setParamsSort('desc')
-        }
+        setTimeout(() => {
+            if (search !== '') {
+                users = users?.filter(({ login }) =>
+                    login.toLowerCase().includes(search.trim().toLowerCase())
+                )
+            }
+            if (orderOption === 'возрастанию') {
+                setParamsSort('asc')
+                return
+            }
+            if (orderOption === 'убыванию') {
+                setParamsSort('desc')
+            }
+        }, 500)
 
         return users
-    }, [logins, search, quantityRepos])
+    }, [logins, search, orderOption])
 
     return (
         <S.wrapper>
@@ -73,36 +89,31 @@ export const Main = () => {
                 <S.menu>
                     <S.span>{totalCount} Users Found</S.span>
                     <SortRepos
-                        Repos={quantityRepos}
-                        setRepos={setQuantityRepos}
-                        revealRepos={revealRepos}
-                        setRevealRepos={setRevealRepos}
+                        orderOption={orderOption}
+                        setOrderOption={setOrderOption}
+                        isReveal={isReveal}
+                        setIsReveal={setIsReveal}
                     />
                 </S.menu>
                 {filterUsers && (
-                    <S.ul onClick={() => setRevealRepos(false)}>
-                        {filterUsers.map((el) => (
-                            <S.li key={el.id}>
-                                <S.avatar
-                                    src={el.avatar_url}
-                                    alt="img"
-                                    onClick={() => {
-                                        setModalActive(true)
-                                        setCurrentUser(el.login)
-                                    }}
-                                />
-                                <S.span>{el.login}</S.span>
-                            </S.li>
-                        ))}
-                    </S.ul>
+                    <Content
+                        filterUsers={filterUsers}
+                        setIsReveal={setIsReveal}
+                        setIsModalActive={setIsModalActive}
+                        setCurrentUser={setCurrentUser}
+                    />
                 )}
                 <Modal
-                    isActive={modalActive}
-                    setIsActive={setModalActive}
+                    isActive={isModalActive}
+                    setIsActive={setIsModalActive}
                     currentUser={currentUser}
                 />
             </S.main>
-            <Pagination currentPage={currentPage} totalCount={totalCount} />
+            <Pagination
+                currentPage={currentPage}
+                totalCount={totalCount}
+                perPage={perPage}
+            />
         </S.wrapper>
     )
 }

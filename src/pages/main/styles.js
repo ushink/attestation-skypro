@@ -2,17 +2,6 @@ import styled from 'styled-components'
 
 export const wrapper = styled.div`
     height: 100vh;
-    background: linear-gradient(
-            rgba(135, 60, 255, 0.4),
-            rgba(135, 60, 255, 0) 80%
-        ),
-        linear-gradient(
-            -45deg,
-            rgba(120, 155, 255, 0.9) 25%,
-            rgba(255, 160, 65, 0.9) 75%
-        );
-    background-repeat: no-repeat;
-    background-size: cover;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -80,36 +69,6 @@ export const menu = styled.div`
     justify-content: space-between;
 `
 
-export const ul = styled.ul`
-    align-items: flex-start;
-    cursor: pointer;
-    display: flex;
-    flex-wrap: wrap;
-    padding-top: 20px;
-    gap: 20px;
-`
-
-export const li = styled.li`
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    list-style: none;
-    text-align: center;
-    width: calc(100% / 5 - 80px);
-`
-
-export const avatar = styled.img`
-    max-width: 100%;
-    margin-bottom: 10px;
-    border-radius: 50%;
-
-    &:hover {
-        box-shadow:
-            2px 2px 7px 2px rgba(130, 130, 130, 0.7),
-            -2px -2px 7px 2px rgba(130, 130, 130, 1);
-    }
-`
 export const span = styled.span`
     font-size: 18px;
     line-height: 24px;
