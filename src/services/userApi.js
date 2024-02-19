@@ -11,20 +11,15 @@ export const userApi = createApi({
     endpoints: (build) => ({
         // получить login всех пользователей
         getAllLogins: build.query({
-            query: ({ searchValue, page }) =>
-                `search/users?q=${searchValue}&per_page=${21}&page=${page}`
+            query: ({ searchValue, sort, page }) =>
+                `search/users?q=${searchValue}&sort=repositories&order=${sort}&per_page=${21}&page=${page}`
         }),
 
         // получить данные пользователя
         getUser: build.query({
             query: (login) => `users/${login}`
-        }),
-
-        // получить repos выбранного пользователя
-        getUserRepos: build.query({
-            query: (login) => `users/${login}/repos`
         })
     })
 })
 
-export const { useGetAllLoginsQuery, useGetUserQuery, useGetUserReposQuery } = userApi
+export const { useGetAllLoginsQuery, useGetUserQuery } = userApi

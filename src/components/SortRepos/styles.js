@@ -24,6 +24,8 @@ export const filterBox = styled.div`
     flex-direction: column;
 `
 export const button = styled.div`
+    width: 140px;
+    text-align: center;
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
@@ -41,7 +43,7 @@ export const menu = styled.div`
     position: absolute;
     top: 50px;
     width: 200px;
-    height: 140px;
+    height: 100px;
     box-sizing: border-box;
     border: 1px solid #ffffff;
     background-color: rgba(161, 21, 207, 0.8);

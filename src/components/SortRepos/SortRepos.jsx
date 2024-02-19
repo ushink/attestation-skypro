@@ -7,20 +7,11 @@ export default function SortRepos({
     Repos,
     setRepos
 }) {
-    const [defaultRepos, setDefaultRepos] = useState(true)
     const [moreRepos, setMoreRepos] = useState(false)
     const [lessRepos, setLessRepos] = useState(false)
 
-    const toggleDefaultRepos = () => {
-        setDefaultRepos(!defaultRepos)
-        setMoreRepos(false)
-        setLessRepos(false)
-        setRepos('умолчанию')
-    }
-
     const toggleMoreRepos = () => {
         setMoreRepos(!moreRepos)
-        setDefaultRepos(false)
         setLessRepos(false)
         setRepos('возрастанию')
     }
@@ -28,7 +19,6 @@ export default function SortRepos({
     const toggleLessRepos = () => {
         setLessRepos(!lessRepos)
         setMoreRepos(false)
-        setDefaultRepos(false)
         setRepos('убыванию')
     }
 
@@ -45,13 +35,6 @@ export default function SortRepos({
                 {revealRepos && (
                     <S.menu>
                         <S.list>
-                            <S.item href="#" onClick={toggleDefaultRepos}>
-                                {defaultRepos ? (
-                                    <S.activeItem>{Repos}</S.activeItem>
-                                ) : (
-                                    'умолчанию'
-                                )}
-                            </S.item>
                             <S.item href="#" onClick={toggleMoreRepos}>
                                 {moreRepos ? (
                                     <S.activeItem>{Repos}</S.activeItem>

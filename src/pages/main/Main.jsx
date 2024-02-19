@@ -1,9 +1,6 @@
 // import { login } from '../../mock/login'
 import { useEffect, useMemo, useState } from 'react'
-import {
-    useGetAllLoginsQuery,
-    useGetUserReposQuery
-} from '../../services/userApi'
+import { useGetAllLoginsQuery } from '../../services/userApi'
 import * as S from './styles'
 import { useDispatch, useSelector } from 'react-redux'
 import { setAllLogins } from '../../store/slices/userSlice'
@@ -17,24 +14,21 @@ export const Main = () => {
     const logins = useSelector((state) => state.users.items)
     const totalCount = useSelector((state) => state.users.totalCount)
     const currentPage = useSelector((state) => state.users.currentPage)
-    console.log(logins)
 
     const [search, setSearch] = useState('')
     const [modalActive, setModalActive] = useState(false)
     const [currentUser, setCurrentUser] = useState('')
     // сортировка
-    const [quantityRepos, setQuantityRepos] = useState('умолчанию')
+    const [quantityRepos, setQuantityRepos] = useState('—')
     const [revealRepos, setRevealRepos] = useState(false)
+    const [paramsSort, setParamsSort] = useState('')
 
     const { data: allLoginsData } = useGetAllLoginsQuery({
         searchValue: search.trim().toLowerCase(),
+        sort: paramsSort,
         page: currentPage
     })
-
-    const { data: usersRepos } = useGetUserReposQuery(
-        search.trim().toLowerCase()
-    )
-    console.log(usersRepos)
+    console.log(allLoginsData)
 
     useEffect(() => {
         try {
@@ -52,18 +46,15 @@ export const Main = () => {
                 login.toLowerCase().includes(search.trim().toLowerCase())
             )
         }
-        // if (quantityRepos === 'возрастанию') {
-        //     repos = repos.sort(
-        //         (a, b) => new Date(b.public_repos) - new Date(a.public_repos)
-        //     )
-        // }
-        // if (quantityRepos === 'убыванию') {
-        //     repos = repos.sort(
-        //         (a, b) => new Date(a.public_repos) - new Date(b.public_repos)
-        //     )
-        // }
+        if (quantityRepos === 'возрастанию') {
+            setParamsSort('asc')
+        }
+        if (quantityRepos === 'убыванию') {
+            setParamsSort('desc')
+        }
+
         return users
-    }, [logins, search])
+    }, [logins, search, quantityRepos])
 
     return (
         <S.wrapper>
@@ -89,7 +80,7 @@ export const Main = () => {
                     />
                 </S.menu>
                 {filterUsers && (
-                    <S.ul>
+                    <S.ul onClick={() => setRevealRepos(false)}>
                         {filterUsers.map((el) => (
                             <S.li key={el.id}>
                                 <S.avatar
