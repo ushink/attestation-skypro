@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/attestation-skypro/static/css/main.f029a054.css",
+    "main.js": "/attestation-skypro/static/js/main.4ab843da.js",
+    "index.html": "/attestation-skypro/index.html",
+    "main.f029a054.css.map": "/attestation-skypro/static/css/main.f029a054.css.map",
+    "main.4ab843da.js.map": "/attestation-skypro/static/js/main.4ab843da.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f029a054.css",
+    "static/js/main.4ab843da.js"
+  ]
+}
