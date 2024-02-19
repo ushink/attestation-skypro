@@ -5,7 +5,8 @@ export const userSlice = createSlice({
     initialState: {
         items: [],
         totalCount: 0,
-        currentPage: 1
+        currentPage: 1,
+        perPage: 14
     },
     reducers: {
         setAllLogins(state, action) {

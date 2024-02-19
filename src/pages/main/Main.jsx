@@ -14,6 +14,7 @@ export const Main = () => {
     const logins = useSelector((state) => state.users.items)
     const totalCount = useSelector((state) => state.users.totalCount)
     const currentPage = useSelector((state) => state.users.currentPage)
+    const perPage = useSelector((state) => state.users.perPage)
 
     const [search, setSearch] = useState('')
     const [modalActive, setModalActive] = useState(false)
@@ -26,6 +27,7 @@ export const Main = () => {
     const { data: allLoginsData } = useGetAllLoginsQuery({
         searchValue: search.trim().toLowerCase(),
         sort: paramsSort,
+        perPage: perPage,
         page: currentPage
     })
     console.log(allLoginsData)
@@ -102,7 +104,11 @@ export const Main = () => {
                     currentUser={currentUser}
                 />
             </S.main>
-            <Pagination currentPage={currentPage} totalCount={totalCount} />
+            <Pagination
+                currentPage={currentPage}
+                totalCount={totalCount}
+                perPage={perPage}
+            />
         </S.wrapper>
     )
 }

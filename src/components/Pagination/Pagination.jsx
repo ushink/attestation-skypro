@@ -3,10 +3,10 @@ import * as S from './styles'
 import { setCurrentPage } from '../../store/slices/userSlice'
 import { createPages } from '../../utils/createPages'
 
-export const Pagination = ({ totalCount, currentPage }) => {
+export const Pagination = ({ totalCount, currentPage, perPage }) => {
     const dispatch = useDispatch()
 
-    const pagesCount = Math.ceil(totalCount / 21)
+    const pagesCount = Math.ceil(totalCount / perPage)
     const pages = []
     createPages(pages, pagesCount, currentPage)
 
